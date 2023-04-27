@@ -6,12 +6,11 @@ namespace Default
 {
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] bool isMoving = false;
+        bool isMoving = false;
         public float speed = 10f;
         Swipe swipe;
-
-        
-
+        public GameObject uiPanelStart;
+        public GameObject uiPanelLoose;
 
         void Start()
         {
@@ -20,22 +19,23 @@ namespace Default
 
         void Update()
         {                     
-
-            if(Input.touchCount > 0)
-            {
-                Touch touch = Input.GetTouch(0);
-                if(touch.phase == TouchPhase.Began)
+            if(!uiPanelStart.activeSelf && !uiPanelLoose.activeSelf){
+                if(Input.touchCount > 0)
                 {
-                    isMoving = true;
+                    Touch touch = Input.GetTouch(0);
+                    if(touch.phase == TouchPhase.Began)
+                    {
+                        isMoving = true;
+                    }
+                    else if(touch.phase == TouchPhase.Ended)
+                    {
+                        isMoving = false;
+                    }
+                }  
+                    
+                if(isMoving){
+                    transform.Translate(Vector3.forward * speed * Time.deltaTime);
                 }
-                else if(touch.phase == TouchPhase.Ended)
-                {
-                    isMoving = false;
-                }
-            }  
-                
-            if(isMoving){
-                transform.Translate(Vector3.forward * speed * Time.deltaTime);
             }                   
         }            
     }

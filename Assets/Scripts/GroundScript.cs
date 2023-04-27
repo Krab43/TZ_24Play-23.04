@@ -7,8 +7,9 @@ public class GroundScript : MonoBehaviour
     RoadGenerator _rg;
     [SerializeField] GameObject wallPrefab;
     [SerializeField] GameObject pickPrefab;
-    public Transform roadHolder;
-    
+    [SerializeField] int randomWallYMin = 1;
+    [SerializeField] int randomWallYMax = 4;
+    [SerializeField] int randomBlockAmount = 3; 
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class GroundScript : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
+            Debug.Log("Player Leave Ground");
             Destroy(gameObject, 3f);
             _rg.CreateTileObj();
         }
@@ -34,7 +36,7 @@ public class GroundScript : MonoBehaviour
         int randomWallY;
 
         for (int i = 0; i < 5; i++){
-            randomWallY = Random.Range(1, 4);
+            randomWallY = Random.Range(randomWallYMin, randomWallYMax);
             for (int j = 0; j < randomWallY; j++){
                 Instantiate(wallPrefab, spawnPos, Quaternion.identity, _rg.roadHolder);                
                 spawnPos.y += 1f;                
@@ -52,7 +54,7 @@ public class GroundScript : MonoBehaviour
         Vector3 spawnPos = wallSpawner.transform.position;
 
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < randomBlockAmount; i++)
         {   
             int randomPickableObjX = Random.Range(0, 4);
             for (int j = 0; j < 3; j++)

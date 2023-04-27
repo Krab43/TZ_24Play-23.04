@@ -6,33 +6,26 @@ namespace Default {
 public class CharacterObjMovement : MonoBehaviour
 {
     public Swipe swipe;
+
+    public GameObject alfaCube;
+    public GameObject counter;
+
     public float sideSpeed = 0.1f;
     float maxX = 2f;
     float minX = -2f;
     
     Vector2 lastSwipeDelta;
-    Vector3 currentPos;
-
-    PickUpCubeScript _pickScript;
-    public GameObject alfaCube;
-    int pickedUpCubes = 0;
-    [SerializeField] private GameObject cube;
-    public Transform cubeParent;
-    [SerializeField] Vector3 _grow; 
-    public float growY = 1f;
-    [SerializeField] int currAmountOfCubes = 0;
-    public int _pickedCubes;
-
-    [SerializeField] GameObject _warpEffect;
-    public PlayerMovement playerMovement;
-
-    public GameObject counter;
-
-
     Vector3 newCube;
-    public float y = .5f;
 
-    public GameObject loosePanel;
+    [SerializeField] private GameObject cube;
+    [SerializeField] Vector3 _grow; 
+    [SerializeField] int currAmountOfCubes = 0;
+    PickUpCubeScript _pickScript;
+    public Transform cubeParent;
+    public float growY = 1f;
+    public int _pickedCubes;
+    public float y = .5f;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +39,7 @@ public class CharacterObjMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentPos = transform.position;
+        // currentPos = transform.position;
         if (swipe.MoveDir == Direction.Left || swipe.MoveDir == Direction.Right)
         {
             if (swipe.IsDragging)
@@ -62,8 +55,6 @@ public class CharacterObjMovement : MonoBehaviour
             }
         }
 
-        // pickedUpCubes = _pickScript._pickedCubes;
-
         if (_pickedCubes > currAmountOfCubes)
         {
             transform.position += _grow;
@@ -76,18 +67,12 @@ public class CharacterObjMovement : MonoBehaviour
             currAmountOfCubes = _pickedCubes;
             StartCoroutine(CountRoutine());
         } 
-        
-        if (_pickedCubes > 3)
-        {
-            _warpEffect.gameObject.SetActive(true);
-        }
     }  
 
     IEnumerator CountRoutine()
     {
         counter.gameObject.SetActive(true);
-        // anim.Play("CountAnim");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.7f);
         counter.gameObject.SetActive(false);
     }
 
