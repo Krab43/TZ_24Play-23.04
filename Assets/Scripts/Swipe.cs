@@ -9,7 +9,7 @@ namespace Default
         [SerializeField] float deadZoneDistance = 0f;
         public GameObject uiPanelStart;
         public GameObject uiPanelLoose;
-        private bool _tap;
+        // private bool _tap;
         private bool _isDragging;
         private Vector2 startTouch, swipeDelta;
 
@@ -18,14 +18,13 @@ namespace Default
             get { return _isDragging; }
         }
         public Vector2 SwipeDelta{
-            get { return swipeDelta; }
-        }
+            get { return swipeDelta; } }
        
         private void Update() 
         { 
             if(!uiPanelStart.activeSelf && !uiPanelLoose.activeSelf){
                 MoveDir = Direction.Default;
-                _tap = false;
+                // _tap = false;
                 _isDragging = false; //test
 
                 // Vector2 prevSwipeDelta = swipeDelta;            
@@ -33,7 +32,7 @@ namespace Default
                 if (Input.touches.Length > 0) {
                     if (Input.touches[0].phase == TouchPhase.Began) {
                         _isDragging = true;                    
-                        _tap = true;                    
+                        // _tap = true;                    
                         startTouch = Input.touches[0].position;
                         Debug.DrawLine(Vector3.zero, new Vector3(startTouch.x, startTouch.y, 0f), Color.red);
                     } else if (Input.touches[0].phase == TouchPhase.Ended || Input.touches[0].phase == TouchPhase.Canceled) {
@@ -42,11 +41,10 @@ namespace Default
                     } else {
                         _isDragging = true;
                         swipeDelta = Input.touches[0].position - startTouch;
-                        // Debug.Log("swipeDelta: " + swipeDelta);
                     }
                 } else if (Input.GetMouseButtonDown(0)) {
                     _isDragging = true;                
-                    _tap = true;
+                    // _tap = true;
                     startTouch = Input.mousePosition;
                 } else if (Input.GetMouseButtonUp(0)) {
                     _isDragging = false;                

@@ -13,13 +13,10 @@ public class CharacterObjMovement : MonoBehaviour
     public float sideSpeed = 0.1f;
     float maxX = 2f;
     float minX = -2f;
-    
-    Vector2 lastSwipeDelta;
-    Vector3 newCube;
 
     [SerializeField] private GameObject cube;
-    [SerializeField] Vector3 _grow; 
     [SerializeField] int currAmountOfCubes = 0;
+    Vector3 _grow; 
     PickUpCubeScript _pickScript;
     public Transform cubeParent;
     public float growY = 1f;
@@ -30,16 +27,13 @@ public class CharacterObjMovement : MonoBehaviour
     void Start()
     {
         swipe = GetComponent<Swipe>();
-        lastSwipeDelta = Vector2.zero;
         _pickScript = alfaCube.GetComponent<PickUpCubeScript>();
-        newCube = transform.position;
         _grow.y = growY;
     }
 
     // Update is called once per frame
     void Update()
-    {
-        // currentPos = transform.position;
+    {        
         if (swipe.MoveDir == Direction.Left || swipe.MoveDir == Direction.Right)
         {
             if (swipe.IsDragging)
@@ -59,26 +53,22 @@ public class CharacterObjMovement : MonoBehaviour
         {
             transform.position += _grow;
 
-            
-            // _groundY++;
             var go = Instantiate(cube, transform.position - new Vector3(0, y, 0), Quaternion.identity, cubeParent.transform);
             y++;
             go.tag = "Untagged";
             currAmountOfCubes = _pickedCubes;
-            StartCoroutine(CountRoutine());
+            counter.gameObject.SetActive(true);
+            Invoke("DisableCounter", .7f);
         } 
     }  
 
-    IEnumerator CountRoutine()
+    void DisableCounter()
     {
-        counter.gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.7f);
         counter.gameObject.SetActive(false);
     }
 
     public void DecreeseY()
     {
-        Debug.Log("Decreese Y");        
         transform.position -= _grow;  
         y--;      
         _pickedCubes--;
