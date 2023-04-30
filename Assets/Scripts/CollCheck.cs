@@ -10,7 +10,7 @@ public class CollCheck : MonoBehaviour
     {     
         if(other.gameObject.tag == "Wall" || other.gameObject.tag == "Ground")
         {
-            Debug.Log("Loose");
+            // Debug.Log("Loose");
             loosePanel.gameObject.SetActive(true);
         }
     }     

@@ -27,8 +27,6 @@ namespace Default
                 // _tap = false;
                 _isDragging = false; //test
 
-                // Vector2 prevSwipeDelta = swipeDelta;            
-
                 if (Input.touches.Length > 0) {
                     if (Input.touches[0].phase == TouchPhase.Began) {
                         _isDragging = true;                    
@@ -55,7 +53,6 @@ namespace Default
 
                 if (Mathf.Abs(swipeDelta.x) > deadZoneDistance) {
                     float x = swipeDelta.x;
-                    // left or right
                     if (x < 0) {
                         MoveDir = Direction.Left;
                         if (!_isDragging) {
@@ -90,6 +87,6 @@ namespace Default
         Default,
         Left,
         Right,
-        Forward
+        // Forward
     }
 }

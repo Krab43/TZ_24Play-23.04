@@ -22,11 +22,14 @@ public class CharacterObjMovement : MonoBehaviour
     public float growY = 1f;
     public int _pickedCubes;
     public float y = .5f;
+    public float speed = 10f;
+
+    public GameObject uiPanelStart;
+    public GameObject uiPanelLoose;
     
     // Start is called before the first frame update
     void Start()
     {
-        swipe = GetComponent<Swipe>();
         _pickScript = alfaCube.GetComponent<PickUpCubeScript>();
         _grow.y = growY;
     }
@@ -48,6 +51,12 @@ public class CharacterObjMovement : MonoBehaviour
                 swipe.MoveDir = Direction.Default;
             }
         }
+
+        if(!uiPanelStart.activeSelf && !uiPanelLoose.activeSelf){
+                
+                    transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                
+            }        
 
         if (_pickedCubes > currAmountOfCubes)
         {
